@@ -92,6 +92,7 @@ public class pgc extends javax.swing.JFrame {
             }
         });
 
+        imcTextfield.setEditable(false);
         imcTextfield.setBackground(new java.awt.Color(0, 0, 0));
         imcTextfield.setForeground(new java.awt.Color(0, 255, 0));
 
@@ -136,7 +137,8 @@ public class pgc extends javax.swing.JFrame {
 
         edadTextfield.setBackground(new java.awt.Color(0, 0, 0));
         edadTextfield.setForeground(new java.awt.Color(0, 255, 0));
-
+        
+        pgcTextfield.setEditable(false);
         pgcTextfield.setBackground(new java.awt.Color(0, 0, 0));
         pgcTextfield.setForeground(new java.awt.Color(0, 255, 0));
 
