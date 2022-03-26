@@ -1,4 +1,5 @@
 
+
 package PGC.pkg;
 
 import java.awt.Color;
@@ -10,19 +11,22 @@ import javax.swing.SwingConstants;
  * @author ivy
  */
 public class pgc extends javax.swing.JFrame {
-
+    
+      double cm, kg, altelevado, imc, metros, pgc, edad, genero;
+  
     /**
      * 
      */
     public pgc() {
         initComponents();
+        
     }
 
     /**
      
      */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -48,7 +52,7 @@ public class pgc extends javax.swing.JFrame {
         anyosLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("IvySoft IMC+PGC Calc");
+        setTitle("IvySoft IMC+PGC Calc 2.0");
         setBackground(new java.awt.Color(0, 0, 0));
         setBounds(new java.awt.Rectangle(600, 300, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -95,6 +99,11 @@ public class pgc extends javax.swing.JFrame {
         imcTextfield.setEditable(false);
         imcTextfield.setBackground(new java.awt.Color(0, 0, 0));
         imcTextfield.setForeground(new java.awt.Color(0, 255, 0));
+        imcTextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imcTextfieldActionPerformed(evt);
+            }
+        });
 
         salirBtn.setBackground(new java.awt.Color(0, 0, 0));
         salirBtn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -137,10 +146,15 @@ public class pgc extends javax.swing.JFrame {
 
         edadTextfield.setBackground(new java.awt.Color(0, 0, 0));
         edadTextfield.setForeground(new java.awt.Color(0, 255, 0));
-        
+
         pgcTextfield.setEditable(false);
         pgcTextfield.setBackground(new java.awt.Color(0, 0, 0));
         pgcTextfield.setForeground(new java.awt.Color(0, 255, 0));
+        pgcTextfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pgcTextfieldActionPerformed(evt);
+            }
+        });
 
         pgcLabel.setForeground(new java.awt.Color(255, 255, 0));
         pgcLabel.setText("Grasa corporal:");
@@ -262,19 +276,19 @@ public class pgc extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void alturaTextfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alturaTextfieldActionPerformed
+    private void alturaTextfieldActionPerformed(java.awt.event.ActionEvent evt) {                                                
         
-    }//GEN-LAST:event_alturaTextfieldActionPerformed
+    }                                               
 
-    private void salirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBtnActionPerformed
+    private void salirBtnActionPerformed(java.awt.event.ActionEvent evt) {                                         
 
         System.exit(0);
  
-    }//GEN-LAST:event_salirBtnActionPerformed
+    }                                        
 
-    private void limpiarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarBtnActionPerformed
+    private void limpiarBtnActionPerformed(java.awt.event.ActionEvent evt) {                                           
       alturaTextfield.setText("");
       pesoTextfield.setText("");
       imcTextfield.setText("");
@@ -284,14 +298,11 @@ public class pgc extends javax.swing.JFrame {
       commentLabel.setText("");
       commentLabel.setForeground(Color.cyan);
       
-    }//GEN-LAST:event_limpiarBtnActionPerformed
+    }                                          
 
-    private void calcBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcBtnActionPerformed
- 
-      double cm, kg, altelevado;
-      double imc, metros;
-      
-      try{
+    private void calcularIMC(){
+               // Cálculo del IMC
+          try{
           // Cada vez que se ejecuta, se limpia el aviso de error.
           commentLabel.setForeground(Color.cyan);
           commentLabel.setText("");
@@ -303,7 +314,10 @@ public class pgc extends javax.swing.JFrame {
           altelevado = Math.pow(metros, 2);
           
           imc = kg/altelevado;
+         
           imcTextfield.setText(new DecimalFormat("##.##").format(imc));
+          
+    
           if(imc >= 25){
               commentLabel.setForeground(Color.red);
               commentLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -319,17 +333,20 @@ public class pgc extends javax.swing.JFrame {
           
           // Este condicional le da el valor 0 a femenino para el cálculo. 
           // En masculino no hace falta porque ya coinciden "1"
+         
+          
           if(generoBox.getSelectedIndex() == 2){
-             genero=0;
-              
+             genero=0; 
           }
+          
           // PGC
           pgc = (1.2 * imc) + (0.23 * edad) - (10.8 * genero) - 5.4;
-          
+       
           pgcTextfield.setText(new DecimalFormat("##.##").format(pgc));
          
           System.out.println(genero);
           // Si no se selecciona nada en el desplegable
+         
           if(generoBox.getSelectedIndex() == 0){
               commentLabel.setForeground(Color.cyan);
               commentLabel.setText("Revisa el parámetro de género.");
@@ -338,19 +355,34 @@ public class pgc extends javax.swing.JFrame {
           }
           
         
-          
           // Si te dejas por poner algo
       }catch (Exception e){
           commentLabel.setForeground(Color.cyan);
           commentLabel.setText("Revisa los parámetros requeridos.");
+          pgcTextfield.setText("");
+          imcTextfield.setText("");
       }
-      
-        
-    }//GEN-LAST:event_calcBtnActionPerformed
+    }
+    
+         
+    private void calcBtnActionPerformed(java.awt.event.ActionEvent evt) {                                        
 
-    private void generoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generoBoxActionPerformed
+      calcularIMC(); // Llama al método para cálcular el IMC
+    
+    
+    }                                       
+
+    private void generoBoxActionPerformed(java.awt.event.ActionEvent evt) {                                          
        
-    }//GEN-LAST:event_generoBoxActionPerformed
+    }                                         
+
+    private void imcTextfieldActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // TODO add your handling code here:
+    }                                            
+
+    private void pgcTextfieldActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // TODO add your handling code here:
+    }                                            
 
     /**
      *
@@ -366,7 +398,7 @@ public class pgc extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private javax.swing.JLabel alturaLabel;
     private javax.swing.JTextField alturaTextfield;
     private javax.swing.JLabel anyosLabel;
@@ -388,5 +420,5 @@ public class pgc extends javax.swing.JFrame {
     private javax.swing.JLabel porcenLabel;
     private javax.swing.JButton salirBtn;
     private javax.swing.JLabel sexoLabel;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
